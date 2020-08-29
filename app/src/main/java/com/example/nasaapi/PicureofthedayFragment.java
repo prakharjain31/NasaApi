@@ -37,8 +37,8 @@ public class PicureofthedayFragment extends Fragment {
     EditText editText;
     DatePickerDialog datepicker;
     ImageView imageView;
-   public WebView webView;
-    public int mYear , mMonth , mDay;
+    public WebView webView;
+    public int mYear, mMonth, mDay;
     RequestQueue mRequestQueue;
 
     AllianceLoader loader;
@@ -52,15 +52,12 @@ public class PicureofthedayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_picureoftheday, container, false);
+        View view = inflater.inflate(R.layout.fragment_picureoftheday, container, false);
         editText = view.findViewById(R.id.date_edit);
         editText.setInputType(InputType.TYPE_NULL);
         imageView = view.findViewById(R.id.image_view);
 
         webView = view.findViewById(R.id.web_view);
-
-
-
 
 
         loader = view.findViewById(R.id.loader);
@@ -80,12 +77,16 @@ public class PicureofthedayFragment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                if (year > year1 || monthOfYear > month || dayOfMonth > day){
-                                    Toast.makeText(getContext() , "Enter a date not of the future" , Toast.LENGTH_SHORT).show();
+                                if (year > 2020) {
+                                    Toast.makeText(getContext(), "Enter a date not of the future", Toast.LENGTH_SHORT).show();
+                                } else if (year == 2020 & monthOfYear > month) {
+                                    Toast.makeText(getContext(), "Enter a date not of the future", Toast.LENGTH_SHORT).show();
+                                } else if (monthOfYear == month & dayOfMonth > day) {
+                                    Toast.makeText(getContext(), "Enter a date not of the future", Toast.LENGTH_SHORT).show();
                                 } else {
                                     mYear = year;
                                     mMonth = monthOfYear + 1;
-                                    mDay  = dayOfMonth;
+                                    mDay = dayOfMonth;
                                     loader.setVisibility(View.VISIBLE);
                                     editText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                     parseJSON();
@@ -95,7 +96,6 @@ public class PicureofthedayFragment extends Fragment {
                 datepicker.show();
             }
         });
-
 
 
         return view;
@@ -116,7 +116,7 @@ public class PicureofthedayFragment extends Fragment {
                                 String imgurl = response.getString("url");
                                 imageView.setVisibility(View.VISIBLE);
                                 webView.setVisibility(View.INVISIBLE);
-                                Picasso.with(getContext()).load(imgurl).resize(395 , 620).into(imageView);
+                                Picasso.with(getContext()).load(imgurl).resize(395, 620).into(imageView);
 
                             } else {
                                 String imgurl = response.getString("url");
@@ -148,6 +148,6 @@ public class PicureofthedayFragment extends Fragment {
 
     }
 
-    }
+}
 
 
