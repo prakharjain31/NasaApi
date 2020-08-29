@@ -26,12 +26,12 @@ public class SearchDetails extends AppCompatActivity {
     public ImageView imageView;
     public RequestQueue mRequestQueue;
     AllianceLoader loader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_details);
         imageView = findViewById(R.id.imageView2);
-
 
 
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -43,11 +43,11 @@ public class SearchDetails extends AppCompatActivity {
     }
 
     private void parseJSON() {
-        if (mNasaId.length() == 0) {
+        if (mNasaId.length() == 0 || mNasaId.equals("-1")) {
             mNasaId = "NHQ_2016_0120_Jim%20Green%20Planet%20X";
         }
-        String url = "https://images-api.nasa.gov/asset/" + mNasaId ;
-        Log.e("url" , url);
+        String url = "https://images-api.nasa.gov/asset/" + mNasaId;
+        Log.e("url", url);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -56,8 +56,8 @@ public class SearchDetails extends AppCompatActivity {
                     JSONArray items = collection.getJSONArray("items");
                     JSONObject object = items.getJSONObject(0);
                     String href = object.getString("href");
-                    Log.e("asdfg" , href);
-                    Log.e("asdfg" , "" + imageView);
+                    Log.e("asdfg", href);
+                    Log.e("asdfg", "" + imageView);
 //                    Picasso.with(getApplicationContext()).load(href).resize(362 , 659).into(imageView);
                     Glide.with(getApplicationContext()).asBitmap().load(href).into(imageView);
                 } catch (JSONException e) {

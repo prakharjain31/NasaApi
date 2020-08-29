@@ -25,7 +25,7 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.data__layout , parent , false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.data__layout, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -37,12 +37,11 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataAdapter.My
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext , SearchDetails.class);
-                intent.putExtra("id" , dataArrayList.get(position).getmNasa_id());
+                Intent intent = new Intent(mContext, SearchDetails.class);
+                intent.putExtra("id", dataArrayList.get(position).getmNasa_id());
                 mContext.startActivity(intent);
             }
         });
-
 
 
     }
@@ -53,7 +52,8 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataAdapter.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title_view , desc_view ;
+        TextView title_view, desc_view;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title_view = itemView.findViewById(R.id.title_view);

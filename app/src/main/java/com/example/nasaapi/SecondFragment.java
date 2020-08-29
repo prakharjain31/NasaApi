@@ -33,7 +33,7 @@ public class SecondFragment extends Fragment {
 
     public static RecyclerView recyclerView;
     public static SearchView searchView;
-    public static RequestQueue mRequestQueue ;
+    public static RequestQueue mRequestQueue;
     public static ArrayList<SearchData> dataArrayList;
     public static SearchDataAdapter searchDataAdapter;
 
@@ -47,9 +47,9 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_second, container, false);
+        View view = inflater.inflate(R.layout.fragment_second, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext() , RecyclerView.VERTICAL , false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         dataArrayList = new ArrayList<>();
         SearchView searchView1 = view.findViewById(R.id.search_bar);
 
@@ -69,7 +69,7 @@ public class SecondFragment extends Fragment {
         });
 
 
-        mRequestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext())) ;
+        mRequestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         return view;
     }
 
@@ -78,7 +78,7 @@ public class SecondFragment extends Fragment {
         if (newText.length() < 1) {
             newText = "p";
         }
-        String url = "https://images-api.nasa.gov/search?q=" + newText ;
+        String url = "https://images-api.nasa.gov/search?q=" + newText;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -86,7 +86,7 @@ public class SecondFragment extends Fragment {
                 try {
                     JSONObject collection = response.getJSONObject("collection");
                     JSONArray jsonArray = collection.getJSONArray("items");
-                    for (int i = 0 ; i < jsonArray.length() ; i++) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                         JSONArray data = jsonObject.getJSONArray("data");
                         JSONObject data_object = (JSONObject) data.get(0);
@@ -94,18 +94,18 @@ public class SecondFragment extends Fragment {
                         String description = data_object.getString("description");
                         String nasa_id = data_object.getString("nasa_id");
                         if (description.length() > 450) {
-                            description = description.substring(0 , 450);
+                            description = description.substring(0, 450);
                         }
-                        Log.e(title + nasa_id , description);
-                        SearchData s = new SearchData(title , description , nasa_id);
-                        Log.e("qwerty" , "" + s);
+                        Log.e(title + nasa_id, description);
+                        SearchData s = new SearchData(title, description, nasa_id);
+                        Log.e("qwerty", "" + s);
                         dataArrayList.add(s);
 
                     }
                     if (dataArrayList.size() == 0) {
-                        dataArrayList.add(new SearchData("No Results\nEnter a different query" , "" , "-1"));
+                        dataArrayList.add(new SearchData("No Results\nEnter a different query", "", "-1"));
                     }
-                    searchDataAdapter = new SearchDataAdapter(getContext() , dataArrayList);
+                    searchDataAdapter = new SearchDataAdapter(getContext(), dataArrayList);
                     recyclerView.setAdapter(searchDataAdapter);
 
                 } catch (JSONException e) {
@@ -127,9 +127,6 @@ public class SecondFragment extends Fragment {
         mRequestQueue.add(request);
 
     }
-
-
-
 
 
 }

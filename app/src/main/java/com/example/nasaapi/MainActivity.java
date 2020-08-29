@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             this.titles = new ArrayList<>();
         }
 
-        void addFragments(Fragment fragment , String title) {
+        void addFragments(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
         }
@@ -127,4 +127,5 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return titles.get(position);
         }
-    }}
+    }
+}

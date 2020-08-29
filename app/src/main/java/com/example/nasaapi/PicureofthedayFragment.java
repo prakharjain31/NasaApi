@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -40,7 +41,7 @@ public class PicureofthedayFragment extends Fragment {
     public WebView webView;
     public int mYear, mMonth, mDay;
     RequestQueue mRequestQueue;
-
+    TextView textView;
     AllianceLoader loader;
 
     public PicureofthedayFragment() {
@@ -56,7 +57,7 @@ public class PicureofthedayFragment extends Fragment {
         editText = view.findViewById(R.id.date_edit);
         editText.setInputType(InputType.TYPE_NULL);
         imageView = view.findViewById(R.id.image_view);
-
+        textView = view.findViewById(R.id.text_view);
         webView = view.findViewById(R.id.web_view);
 
 
@@ -114,13 +115,16 @@ public class PicureofthedayFragment extends Fragment {
                             if (response.getString("media_type").equals("image")) {
 
                                 String imgurl = response.getString("url");
+                                String description = response.getString("explanation");
+                                textView.setText(description);
                                 imageView.setVisibility(View.VISIBLE);
                                 webView.setVisibility(View.INVISIBLE);
-                                Picasso.with(getContext()).load(imgurl).resize(395, 620).into(imageView);
+                                Picasso.with(getContext()).load(imgurl).resize(392, 440).into(imageView);
 
                             } else {
                                 String imgurl = response.getString("url");
-
+                                String description = response.getString("explanation");
+                                textView.setText(description);
                                 imageView.setVisibility(View.INVISIBLE);
                                 webView.setVisibility(View.VISIBLE);
                                 webView.loadUrl(imgurl);
